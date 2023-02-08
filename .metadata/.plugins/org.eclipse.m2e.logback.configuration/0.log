@@ -5065,3 +5065,12 @@ org.eclipse.core.runtime.CoreException: Could not resolve artifact org.springfra
 2023-02-08 14:58:02,377 [Worker-0: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource
 2023-02-08 14:58:02,380 [Worker-0: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource
 2023-02-08 14:58:02,382 [Worker-0: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory D:\ProgrammingEnviroment\Java\Projects\Shopping\shopping\login-service\src\test\resources
+2023-02-08 15:10:02,275 [Worker-4: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2023-02-08 15:10:04,209 [Worker-9: Building] INFO  o.e.m.c.i.p.WorkspaceClassifierResolverManager - Resolving P/commons: holge:commons:1.0.1 with classifier  to /commons/target/classes
+2023-02-08 15:10:04,541 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource
+2023-02-08 15:10:04,578 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource
+2023-02-08 15:10:04,584 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory D:\ProgrammingEnviroment\Java\Projects\Shopping\shopping\login-service\src\test\resources
+2023-02-08 15:10:05,539 [Worker-9: Building] INFO  o.e.m.c.i.p.WorkspaceClassifierResolverManager - Resolving P/commons: holge:commons:1.0.1 with classifier  to /commons/target/classes
+2023-02-08 15:10:05,576 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource
+2023-02-08 15:10:05,582 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource
+2023-02-08 15:10:05,587 [Worker-9: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory D:\ProgrammingEnviroment\Java\Projects\Shopping\shopping\user-service\src\test\resources
