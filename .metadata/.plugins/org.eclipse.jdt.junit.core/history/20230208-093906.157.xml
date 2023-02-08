@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="LoginServiceTest" project="login-service" tests="1" started="1" failures="0" errors="0" ignored="0">
+  <testsuite name="holge.shopping.loginservice.unittest.LoginServiceTest" time="0.348" displayname="LoginServiceTest" uniqueid="[engine:junit-jupiter]/[class:holge.shopping.loginservice.unittest.LoginServiceTest]">
+    <testcase name="test" classname="holge.shopping.loginservice.unittest.LoginServiceTest" time="0.348" displayname="test()" uniqueid="[engine:junit-jupiter]/[class:holge.shopping.loginservice.unittest.LoginServiceTest]/[method:test()]"/>
+  </testsuite>
+</testrun>

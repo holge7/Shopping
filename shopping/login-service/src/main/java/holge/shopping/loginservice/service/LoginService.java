@@ -1,10 +1,6 @@
 package holge.shopping.loginservice.service;
 
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.CompletableFuture;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,15 +8,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
 import commons.dto.ApiResponse;
 import commons.dto.UserDTO;
-import commons.enums.ERol;
 import holge.shopping.loginservice.exception.CustomGenericalException;
 import holge.shopping.loginservice.payload.LoginResponse;
 import holge.shopping.loginservice.security.JwtUtils;
@@ -28,8 +20,6 @@ import holge.shopping.loginservice.security.JwtUtils;
 @Service
 public class LoginService {
 	private static Logger log = LoggerFactory.getLogger(LoginService.class);
-	
-	private Map<String, CompletableFuture<ResponseEntity<String>>> futures = new HashMap<>();
 	
 	JwtUtils jwtUtils;
 	RestTemplate restTemplate;
@@ -57,9 +47,7 @@ public class LoginService {
 	 * @return
 	 */
 	public UserDTO getJwtDetails(String jwt) {
-		UserDTO user = jwtUtils.getUserFromJwt(jwt);
-		
-		return user;
+		return jwtUtils.getUserFromJwt(jwt);
 	}
 	
 	public ApiResponse login(String email, String password) {
@@ -74,7 +62,6 @@ public class LoginService {
 		ApiResponse apiResponse = gson.fromJson(responseFromUser.getBody(), ApiResponse.class);
 		
 		if (apiResponse.isError()) {
-			log.error(apiResponse.getMsg());
 			throw new CustomGenericalException(apiResponse.getMsg(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		

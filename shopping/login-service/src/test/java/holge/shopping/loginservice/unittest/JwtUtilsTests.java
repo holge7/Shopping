@@ -117,10 +117,4 @@ public class JwtUtilsTests {
 		assertFalse(isValid);
 	}
 	
-	
-	
-	
-	
-	
-	
 }

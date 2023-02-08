@@ -1,0 +1,47 @@
+package holge.shopping.loginservice.unittest;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+@ExtendWith(MockitoExtension.class)
+public class LoginServiceTest {
+	
+	/*
+	 * VARS
+	 */
+	
+	
+	/*
+	 * MOCKS
+	 */
+	
+	
+	/*
+	 * PREPARE
+	 */
+	
+	@BeforeEach
+	public void tearUp() {
+		
+	}
+	
+	@AfterEach
+	public void tearDown() {
+		
+	}
+	
+	/*
+	 * TEST
+	 */
+	
+	@Test
+	public void test() {
+		assertTrue(true);
+	}
+	
+}
