@@ -28,7 +28,11 @@ public class RolNotFoundException extends RuntimeException{
 	}
 
 =======
+<<<<<<< HEAD
 >>>>>>> preview
+=======
+>>>>>>> develop
+>>>>>>> develop
 	public HttpStatus getHttpStatus() {
 		return httpStatus;
 	}
@@ -47,7 +51,11 @@ public class RolNotFoundException extends RuntimeException{
 		this.msg = msg;
 	}
     
+<<<<<<< HEAD
 >>>>>>> preview
+=======
+>>>>>>> develop
+>>>>>>> develop
     
     
 }
