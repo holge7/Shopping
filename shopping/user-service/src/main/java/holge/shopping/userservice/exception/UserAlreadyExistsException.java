@@ -3,7 +3,7 @@ package holge.shopping.userservice.exception;
 import org.springframework.http.HttpStatus;
 
 public class UserAlreadyExistsException extends RuntimeException {
-	
+
 	/**
 	 * 
 	 */
@@ -33,10 +33,5 @@ public class UserAlreadyExistsException extends RuntimeException {
 	public void setHttpStatus(HttpStatus httpStatus) {
 		this.httpStatus = httpStatus;
 	}
-    
-    // develop
-    // develop 2
-	// preview
-	// preview 2
 	
 }

@@ -18,6 +18,7 @@ public class RolNotFoundException extends RuntimeException{
     	this.httpStatus = HttpStatus.NOT_FOUND;
     }
 
+<<<<<<< HEAD
 	public String getMsg() {
 		return msg;
 	}
@@ -26,6 +27,8 @@ public class RolNotFoundException extends RuntimeException{
 		this.msg = msg;
 	}
 
+=======
+>>>>>>> preview
 	public HttpStatus getHttpStatus() {
 		return httpStatus;
 	}
@@ -33,6 +36,18 @@ public class RolNotFoundException extends RuntimeException{
 	public void setHttpStatus(HttpStatus httpStatus) {
 		this.httpStatus = httpStatus;
 	}
+<<<<<<< HEAD
+=======
+
+	public String getMsg() {
+		return msg;
+	}
+
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
+    
+>>>>>>> preview
     
     
 }
