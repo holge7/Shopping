@@ -22,12 +22,23 @@ import commons.dto.ApiResponse;
 @ControllerAdvice
 public class ExceptionHandlerImpl extends ResponseEntityExceptionHandler {
 	Logger log = LoggerFactory.getLogger(getClass());
+
+	@ExceptionHandler(UserNotFoundException.class)
+	public ResponseEntity<ApiResponse> handleException(UserNotFoundException e){
+		ApiResponse response = new ApiResponse(e.getMessage());
+
+		return new ResponseEntity<>(
+			response, 
+			e.getHttpStatus()
+		);
+
+	}
 	
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<ApiResponse> handleException(Exception e){
 		ApiResponse response = new ApiResponse(e.getMessage());
 
-		return new ResponseEntity<ApiResponse>(
+		return new ResponseEntity<>(
 			response, 
 			HttpStatus.INTERNAL_SERVER_ERROR
 		);
@@ -39,7 +50,7 @@ public class ExceptionHandlerImpl extends ResponseEntityExceptionHandler {
 			MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
 		Map<String, String> errors = new HashMap<>();
 		((BindException) ex).getBindingResult().getAllErrors()
-			.forEach((error) -> {
+			.forEach(error -> {
 				String name = ((FieldError) error).getField();
 				String msg = error.getDefaultMessage();
 				errors.put(name, msg);
