@@ -1,5 +1,0 @@
-package holge.shopping.loginservice.service;
-
-public class KafkaService {
-
-}
