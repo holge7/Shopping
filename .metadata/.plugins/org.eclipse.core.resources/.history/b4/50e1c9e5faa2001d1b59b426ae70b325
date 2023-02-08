@@ -1,0 +1,5 @@
+package holge.shopping.userservice.kafka;
+
+public class UserConsumer {
+
+}

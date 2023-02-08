@@ -1,0 +1,39 @@
+package holge.shopping.loginservice.controller;
+
+import java.util.concurrent.CompletableFuture;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import holge.shopping.loginservice.service.LoginService;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
+
+@RestController
+@RequestMapping("api/v1")
+public class LoginController {
+	
+	LoginService loginService;
+	
+	public LoginController(LoginService loginService) {
+		this.loginService = loginService;
+	}
+
+	@PostMapping("login")
+	public CompletableFuture<ResponseEntity<String>> login(
+			@RequestBody String email,
+			@RequestBody String password) {
+		return loginService.login2(email, password);
+	}
+	
+	@PostMapping("loginK")
+	public CompletableFuture<ResponseEntity<String>> loginK(
+			@RequestBody String email,
+			@RequestBody String password) {
+		return loginService.login2(email, password);
+	}
+	
+	
+}

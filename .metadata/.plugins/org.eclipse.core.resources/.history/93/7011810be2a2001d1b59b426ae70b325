@@ -1,0 +1,57 @@
+package holge.shopping.loginservice.config;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.kafka.clients.admin.NewTopic;
+import org.apache.kafka.clients.producer.ProducerConfig;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.kafka.config.TopicBuilder;
+import org.springframework.kafka.core.DefaultKafkaProducerFactory;
+import org.springframework.kafka.core.ProducerFactory;
+
+import com.fasterxml.jackson.databind.ser.std.StringSerializer;
+
+@Configuration
+public class Kafka {
+	
+	@Bean
+    public NewTopic topic() {
+        return TopicBuilder.name("login")
+                .partitions(10)
+                .replicas(1)
+                .build();
+    }
+	
+    @Bean
+    public ProducerFactory<String, Object> producerFactory() {
+        Map<String, Object> configProps = new HashMap<>();
+        configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "");
+        configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+        configProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, ObjectSerializer.class);
+        return new DefaultKafkaProducerFactory<>(configProps);
+    }
+	
+	/*@Bean
+    public ProducerFactory<String, Object> producerFactory() {
+        Map<String, Object> config = new HashMap<>();
+        config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+        config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, ObjectSerializer.class);
+        return new DefaultKafkaProducerFactory<>(config);
+    }*/
+	
+	/*
+    @Bean
+    public NewTopic topic() {
+        return TopicBuilder.name("topic1")
+                .partitions(10)
+                .replicas(1)
+                .build();
+    }
+
+    @KafkaListener(id = "myId", topics = "topic1")
+    public void listen(String in) {
+        System.out.println(in);
+    }*/
+}

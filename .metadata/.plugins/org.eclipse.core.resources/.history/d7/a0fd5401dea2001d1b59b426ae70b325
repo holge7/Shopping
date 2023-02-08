@@ -1,0 +1,32 @@
+package holge.shopping.loginservice.config;
+
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+
+public class ObjectSerializer<T> extends JsonSerializer<T> {
+
+    private final ObjectMapper objectMapper = new ObjectMapper();
+
+    @Override
+    public byte[] serialize(String topic, T data) {
+        try {
+            return objectMapper.writeValueAsBytes(data);
+        } catch (JsonProcessingException e) {
+            throw new SerializationException("Error serializing JSON message", e);
+        }
+    }
+
+	@Override
+	public void serialize(T value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+        try {
+            return objectMapper.writeValueAsBytes(data);
+        } catch (JsonProcessingException e) {
+            throw new SerializationException("Error serializing JSON message", e);
+        }
+		
+	}
+}

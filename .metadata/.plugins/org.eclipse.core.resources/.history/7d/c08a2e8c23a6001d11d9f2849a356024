@@ -1,0 +1,5 @@
+package holge.shopping.loginservice.kafka;
+
+public class LoginConsumer {
+
+}

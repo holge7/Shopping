@@ -1,0 +1,14 @@
+package holge.shopping.loginservice.exception;
+
+public class CustomGenericalException extends RuntimeException {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	
+	public CustomGenericalException(String msg) {
+		super(msg);
+	}
+}

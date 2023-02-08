@@ -1,0 +1,5 @@
+package holge.shopping.loginservice.config;
+
+public class KafkaProducer {
+
+}

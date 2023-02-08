@@ -1,0 +1,23 @@
+# GENERAL
+server.port=8088
+spring.application.name=user-service
+
+# DATA
+spring.datasource.password=root
+spring.datasource.url=jdbc:mysql://localhost:3306/user
+spring.datasource.username=root
+
+spring.jpa.show-sql=true
+spring.jpa.generate-ddl=true
+spring.jpa.properties.hibernate.ddl-auto=create
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
+
+# KAFKA
+kafka.topic.name=myTopic
+spring.kafka.bootstrap-servers=localhost:9092
+spring.kafka.consumer.group-id=myGroup
+spring.kafka.consumer.auto-offset-reset=earliest
+
+# DOC
+springdoc.swagger-ui.path=/swagger-ui.html
+springdoc.api-docs.path=/v3/api-docs

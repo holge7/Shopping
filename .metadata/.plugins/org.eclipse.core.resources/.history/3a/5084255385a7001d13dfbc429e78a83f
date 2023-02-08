@@ -1,0 +1,7 @@
+# GENERAL
+server.port=8081
+spring.application.name=login-service
+
+# JWT Properties
+security.app.jwtSecret=HolgeSecretKeyOfAlLeast256bytessssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+security.app.jwtExpirationMs=86400000

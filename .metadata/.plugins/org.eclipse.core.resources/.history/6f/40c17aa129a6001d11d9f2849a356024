@@ -1,0 +1,39 @@
+package holge.shopping.userservice.kafka;
+
+import java.util.HashMap;
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.kafka.annotation.KafkaListener;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import commons.dto.ApiResponse;
+import commons.dto.UserDTO;
+import holge.shopping.userservice.service.UserService;
+
+@Configuration
+public class UserConsumer {
+	
+	UserService userService;
+	
+	public UserConsumer(UserService userService) {
+		this.userService = userService;
+	}
+	
+    @KafkaListener(id = "myId", topics = "login")
+    public String listen(String userSerialize) throws JsonProcessingException {
+    	HashMap<String, String> userDeserialize = new ObjectMapper().readValue(userSerialize, HashMap.class);
+    	
+    	UserDTO userDTO = userService.login(userDeserialize.get("email"), userDeserialize.get("password"));
+    	
+    	ApiResponse response = new ApiResponse(false, "", userDTO);
+    	System.out.println(response);
+    	return "Hello world!";
+    }
+    
+    
+    
+    
+    
+}

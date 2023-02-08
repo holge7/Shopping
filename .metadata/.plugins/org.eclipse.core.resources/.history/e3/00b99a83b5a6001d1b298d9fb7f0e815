@@ -1,0 +1,110 @@
+package holge.shopping.loginservice.service;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.CompletableFuture;
+
+import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.support.SendResult;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+
+import commons.dto.ApiResponse;
+import commons.dto.UserDTO;
+import commons.enums.ERol;
+import holge.shopping.loginservice.exception.CustomGenericalException;
+import holge.shopping.loginservice.security.JwtUtils;
+
+@Service
+public class LoginService {
+	private static Logger log = LoggerFactory.getLogger(LoginService.class);
+	
+	private Map<String, CompletableFuture<ResponseEntity<String>>> futures = new HashMap<>();
+	
+	JwtUtils jwtUtils;
+	RestTemplate restTemplate;
+	Gson gson;
+	private KafkaTemplate<String, Object> kafkaTemplate;
+	
+	public LoginService (JwtUtils jwtUtils, RestTemplate restTemplate, Gson gson, KafkaTemplate<String, Object> kafkaTemplate) {
+		this.jwtUtils = jwtUtils;
+		this.restTemplate = restTemplate;
+		this.gson = gson;
+		this.kafkaTemplate = kafkaTemplate;
+	}
+	
+	
+	/**
+	 * Validate one JWT
+	 * @param jwt
+	 * @return
+	 */
+	public boolean validJwt(String jwt) {
+		return jwtUtils.validateJwtToken(jwt);		
+	}
+
+	/**
+	 * Get the user of the JWT
+	 * @param jwt
+	 * @return
+	 */
+	public UserDTO getJwtDetails(String jwt) {
+		UserDTO user = jwtUtils.getUserFromJwt(jwt);
+		
+		return user;
+	}
+	
+	
+	@KafkaListener(topics = "login-response-topic", groupId = "group_id")
+	public void loginListen(ConsumerRecord<String, String> cr) {
+		//ApiResponse apiResponse= gson.fromJson(cr.value(), ApiResponse.class);
+		System.out.println("Todo ok");
+		/*ApiResponse apiResponse = cr.value();
+		System.out.println(apiResponse);
+		
+		if (apiResponse.isError()) {
+			log.error(apiResponse.getMsg());
+			throw new CustomGenericalException(apiResponse.getMsg(), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		
+		Set<ERol> roleSet = new HashSet<>();
+		roleSet.add(ERol.ROLE_ADMIN);
+		UserDTO userDTO = new UserDTO("email", "name", roleSet);
+		
+		String tokenString = jwtUtils.generateJwtToken(userDTO);
+		System.out.println(tokenString);*/
+		
+	}
+	
+	
+	public CompletableFuture<ResponseEntity<String>> login(String email, String password) {
+		
+		HashMap<String, String> user = new HashMap<>();
+		user.put("email", email);
+		user.put("password", password);
+		
+		CompletableFuture<ResponseEntity<String>> future = new CompletableFuture<>();
+		futures.put("1", future);
+		
+		log.info("Sending login request to user service...");
+		kafkaTemplate.send("login-request-topic", user);
+
+		return future;
+	}
+	
+	
+	
+}

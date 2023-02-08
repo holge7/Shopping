@@ -1,0 +1,13 @@
+import java.util.Set;
+
+import commons.enums.ERol;
+
+public class LoginResponse {
+	
+	String jwtToken;
+	String name;
+	String email;
+	Set<ERol> rol;
+	
+	
+}

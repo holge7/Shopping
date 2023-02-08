@@ -1,0 +1,103 @@
+package holge.shopping.loginservice.service;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.concurrent.CompletableFuture;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.support.SendResult;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+
+import commons.dto.ApiResponse;
+import commons.dto.UserDTO;
+import commons.enums.ERol;
+import holge.shopping.loginservice.exception.CustomGenericalException;
+import holge.shopping.loginservice.security.JwtUtils;
+
+@Service
+public class LoginService {
+	private static Logger log = LoggerFactory.getLogger(LoginService.class);
+	
+	JwtUtils jwtUtils;
+	RestTemplate restTemplate;
+	Gson gson;
+	private KafkaTemplate<Object, Object> template;
+	
+	public LoginService (JwtUtils jwtUtils, RestTemplate restTemplate, Gson gson, KafkaTemplate<Object, Object> template) {
+		this.jwtUtils = jwtUtils;
+		this.restTemplate = restTemplate;
+		this.gson = gson;
+		this.template = template;
+	}
+	
+	
+	/**
+	 * Validate one JWT
+	 * @param jwt
+	 * @return
+	 */
+	public boolean validJwt(String jwt) {
+		return jwtUtils.validateJwtToken(jwt);		
+	}
+
+	/**
+	 * Get the user of the JWT
+	 * @param jwt
+	 * @return
+	 */
+	public UserDTO getJwtDetails(String jwt) {
+		UserDTO user = jwtUtils.getUserFromJwt(jwt);
+		
+		return user;
+	}
+	
+	
+	public void login(String email, String password) {
+		
+		HashMap<String, String> user = new HashMap<>();
+		user.put("email", email);
+		user.put("password", password);
+
+		ResponseEntity<String> response = null;
+		response = restTemplate.postForEntity("http://user-service/api/user/login", user, String.class);
+		
+		ApiResponse apiResponse = gson.fromJson(response.getBody(), ApiResponse.class);
+		
+		if (apiResponse.isError()) {
+			log.error(apiResponse.getMsg());
+			throw new CustomGenericalException(apiResponse.getMsg(), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		ObjectMapper objectMapper = new ObjectMapper();
+    	String dataString;
+		try {
+			dataString = objectMapper.writeValueAsString(user);
+			CompletableFuture<SendResult<Object, Object>> request = template.send("login", dataString);
+			System.out.println(request.complete(null));
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		Set<ERol> roleSet = new HashSet<>();
+		roleSet.add(ERol.ROLE_ADMIN);
+		UserDTO userDTO = new UserDTO(email, password, roleSet);
+		
+		String tokenString = jwtUtils.generateJwtToken(userDTO);
+		System.out.println(tokenString);
+		
+	}
+	
+	
+	
+}

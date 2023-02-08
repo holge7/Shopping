@@ -1,0 +1,80 @@
+package holge.shopping.loginservice.service;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.stereotype.Service;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import commons.dto.UserDTO;
+import commons.enums.ERol;
+import holge.shopping.loginservice.security.JwtUtils;
+
+@Service
+public class LoginService {
+	private static Logger log = LoggerFactory.getLogger(LoginService.class);
+	
+	JwtUtils jwtUtils;
+	private KafkaTemplate<Object, Object> template;
+	
+	public LoginService (JwtUtils jwtUtils, KafkaTemplate<Object, Object> template) {
+		this.jwtUtils = jwtUtils;
+		this.template = template;
+	}
+	
+	
+	/**
+	 * Validate one JWT
+	 * @param jwt
+	 * @return
+	 */
+	public boolean validJwt(String jwt) {
+		return jwtUtils.validateJwtToken(jwt);		
+	}
+
+	/**
+	 * Get the user of the JWT
+	 * @param jwt
+	 * @return
+	 */
+	public UserDTO getJwtDetails(String jwt) {
+		UserDTO user = jwtUtils.getUserFromJwt(jwt);
+		
+		return user;
+	}
+	
+	
+	public void login(String email, String password) {
+		
+		// Simulamos que si existe el usuario
+		HashMap<String, String> user = new HashMap<>();
+		user.put("email", email);
+		user.put("password", password);
+		ObjectMapper objectMapper = new ObjectMapper();
+    	byte[] dataString;
+		try {
+			dataString = objectMapper.writeValueAsBytes(user);
+			template.send("login", "Hello world");
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		Set<ERol> roleSet = new HashSet<>();
+		roleSet.add(ERol.ROLE_ADMIN);
+		UserDTO userDTO = new UserDTO(email, password, roleSet);
+		
+		String tokenString = jwtUtils.generateJwtToken(userDTO);
+		System.out.println(tokenString);
+		
+	}
+	
+	
+	
+}

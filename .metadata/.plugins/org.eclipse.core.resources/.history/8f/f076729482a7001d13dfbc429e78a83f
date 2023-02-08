@@ -1,0 +1,8 @@
+# GENERAL
+server.port=8080
+spring.application.name=api-gateway
+
+# GATEWAY
+spring.cloud.gateway.routes[0].id=user-service
+spring.cloud.gateway.routes[0].uri=http://localhost:8088
+spring.cloud.gateway.routes[0].predicates[0]=Path=/api/user/**
