@@ -26,6 +26,10 @@ public interface UserController {
 							description = "Invalid request", 
 							content = @Content(schema = @Schema(implementation = commons.dto.ApiResponse.class))),
 					@ApiResponse(
+							responseCode = "404", 
+							description = "User not found", 
+							content = @Content(schema = @Schema(implementation = commons.dto.ApiResponse.class))),
+					@ApiResponse(
 							responseCode = "500", 
 							description = "Internal server error", 
 							content = @Content(schema = @Schema(implementation = commons.dto.ApiResponse.class)))
