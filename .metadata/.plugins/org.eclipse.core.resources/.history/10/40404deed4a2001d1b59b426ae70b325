@@ -1,5 +1,0 @@
-package holge.shopping.userservice.config;
-
-public class KafkaConfig {
-
-}

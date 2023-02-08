@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Copy element &apos;ApiResponse.java&apos; to &apos;commons/src/main/java/commons.dto&apos;&#x0D;&#x0A;- Original project: &apos;commonss&apos;&#x0D;&#x0A;- Destination element: &apos;commons/src/main/java/commons.dto&apos;&#x0D;&#x0A;- Original element: &apos;commons.dto.ApiResponse.java&apos;" description="Copy compilation unit" destination="=commons/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;commons.dto" element1="/src&lt;commons.dto{ApiResponse.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1673696674826" units="1" version="1.0"/>
-</session>

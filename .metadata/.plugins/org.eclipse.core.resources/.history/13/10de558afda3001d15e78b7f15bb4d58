@@ -1,5 +1,0 @@
-package holge.shopping.loginservice.exception;
-
-public class ExceptionJHandlerImpl {
-
-}
